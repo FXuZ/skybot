@@ -23,16 +23,10 @@ import re
 from util import hook, http
 
 
-<<<<<<< HEAD
-=======
 @hook.command('ss')
->>>>>>> 131698230a1e05ec36b2dbbed9e918c0cc3e6f24
 @hook.command
 def simi(inp):
     '''.simi <sentense> -- talk to simsimi'''
 
-<<<<<<< HEAD
-=======
     out = "Duduru~~ This is Mayushii~~\n" + simsimi(inp)
->>>>>>> 131698230a1e05ec36b2dbbed9e918c0cc3e6f24
     return out
