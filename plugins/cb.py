@@ -11,20 +11,26 @@ from util import cleverbot
 
 userlist = []
 cbs = cleverbot.Session()
+
+
 @hook.command('du')
 @hook.command
-def duduru(inp, nick):
-    '''.simi <sentense> -- talk to simsimi'''
-    if nick not in userlist:
-        out = "Duduru~~ This is Mayushii~~\n" + cbs.Ask(inp)
-        userlist.append(nick)
-    else:
-        out = cbs.Ask(inp)
+def duduru(inp, nick=''):
+    '''.du/.duduru <sentense> -- talk to cleverbot
+    www.cleverbot.com'''
+    # if nick not in userlist:
+        # out = "Duduru~ 真由しいです\n" + cbs.Ask(inp)
+        # userlist.append(nick)
+    # else:
+    out = cbs.Ask(inp)
     return out
 
+@hook.regex('^duduru')
+def durep(msg, nick=''):
+    out = cbs.Ask(msg)
+    return out
 
-settings.configure()
-request = HttpRequest()
-request.POST['message'] = 'test'
-request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
-
+# settings.configure()
+# request = HttpRequest()
+# request.POST['message'] = 'test'
+# request.META['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'

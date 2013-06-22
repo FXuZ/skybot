@@ -39,7 +39,10 @@ class crlf_tcp(object):
         self.timeout = timeout
 
     def create_socket(self):
-        return socket.socket(socket.AF_INET, socket.TCP_NODELAY)
+        try:
+            return socket.socket(socket.AF_INET6, socket.TCP_NODELAY)
+        except socket.error:
+            return socket.socket(socket.AF_INET, socket.TCP_NODELAY)
 
     def run(self):
         self.socket.connect((self.host, self.port))
