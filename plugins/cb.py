@@ -16,8 +16,7 @@ cbs = cleverbot.Session()
 @hook.command('du')
 @hook.command
 def duduru(inp, nick=''):
-    '''.du/.duduru <sentense> -- talk to cleverbot
-    www.cleverbot.com'''
+    '''.du/.duduru <sentense> -- talk to cleverbot http://www.cleverbot.com'''
     # if nick not in userlist:
         # out = "Duduru~ 真由しいです\n" + cbs.Ask(inp)
         # userlist.append(nick)
