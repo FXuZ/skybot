@@ -3,7 +3,7 @@ import random
 from util import hook, http
 
 
-def api_get(kind, query):
+def api_get(kind, query, cookie=[]):
     url = 'http://ajax.googleapis.com/ajax/services/search/%s?' \
           'v=1.0&safe=off'
     return http.get_json(url % kind, q=query)
@@ -16,11 +16,11 @@ def gis(inp):
     parsed = api_get('images', inp)
     if not 200 <= parsed['responseStatus'] < 300:
         raise IOError('error searching for images: %d: %s' % (
-                parsed['responseStatus'], ''))
+            parsed['responseStatus'], ''))
     if not parsed['responseData']['results']:
         return 'no images found'
     return random.choice(parsed['responseData']['results'][:10]) \
-            ['unescapedUrl']  # squares is dumb
+        ['unescapedUrl']  # squares is dumb
 
 
 @hook.command('g')
@@ -31,7 +31,7 @@ def google(inp):
     parsed = api_get('web', inp)
     if not 200 <= parsed['responseStatus'] < 300:
         raise IOError('error searching for pages: %d: %s' % (
-                parsed['responseStatus'], ''))
+            parsed['responseStatus'], ''))
     if not parsed['responseData']['results']:
         return 'no results found'
 
