@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 #-*-coding:utf-8-*-
-import urllib.request
-import urllib.parse
+import urllib2
 import re
 from util import hook
 
 
 def geturl(key):
     url = 'http://baike.baidu.com/search?word=%s&type=0&pn=0&rn=10&submit=search'
-    skey = urllib.parse.quote(key.encode('gbk'))
-    tmp = urllib.request.urlopen(url % skey)
+    # skey = urllib.quote(key.encode('gbk'))
+    skey = key.encode('gbk').strip()
+    req = urllib2.Request(url % skey)
+    opener = urllib2.build_opener()
+    urllib2.install_opener(opener)
+    tmp = opener.open(req)
+    # tmp = urllib.urlopen(url % skey)
     data = tmp.read().decode('gbk')
     tmp.close()
     return data
