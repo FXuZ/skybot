@@ -21,9 +21,15 @@ def geturl(key):
 
 @hook.command('baike')
 def re_get(key):
-    text = re.search('\/view\/.*\.htm', geturl(key))
-    if not text :
-        return "没有找到结果！"
+    tmp = geturl(key)
+    text = re.search('\/view\/.*\.htm[l]?', tmp)
+    if not text:
+        return "百度百科弱爆了，没结果的说，乃快去创建吧！ ---- http://baike.baidu.com/create/%s&enc=gbk" % (urllib2.quote(key.decode('utf8').encode('gbk')))
     text = text.group()
-    msg = "http://baike.baidu.com" + text
-    return msg
+    abstmp = re.search('(?<=<div class="abstract">\s{2}).*(?=<\/div>)',
+                       tmp).group()
+    abst = ""
+    if abstmp:
+        abst = " ---- " + re.sub("<[\/\w]*>", "", abstmp)
+        msg = "http://baike.baidu.com" + text + abst
+        return msg
