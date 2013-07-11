@@ -16,11 +16,14 @@ def get_torrent(key, order=5):
     return content
 
 
+@hook.command('fl')
 @hook.command('fuli')
 def get_magnet(key):
+    '''.fl/.fuli <keywords> -- 从http://btdigg.org 上搜索福利并且返回评分最高的结果的磁力链.
+    '''
     result = re.search('(?<="magnet)[^"]*(?=")', get_torrent(key))
     if result:
         result = "magnet" + result.group()
     else:
         result = "乃个变态到底想要啥种子？！"
-        return result
+    return result
