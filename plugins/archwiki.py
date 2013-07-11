@@ -4,7 +4,7 @@ Scaevolus 2009'''
 import re
 
 from util import hook, http
-from lxml import etree
+# from lxml import etree
 
 
 api_prefix = "https://wiki.archlinux.org/api.php"
@@ -25,28 +25,18 @@ def archwiki(inp):
     if len(sug) is 0:
         return "啊啦没找到这个主题呢~"
     else:
-        rslt = http.get_xml(index_prefix, search=sug[0],
-                            title='Special Search')
-        for e in rslt.iter('h1'):
-            if 'id' in e.attrib and'firstHeading' == e.attrib['id']:
-                hd = e
-                break
-        topic = strip_label(etree.tostring(hd))
-        for e in rslt.iter('div'):
-            attrs = e.attrib
-            if 'id' in attrs and 'mw-content-text' == attrs['id']:
-                cont = e
-                break
-        for e in cont.iter('p'):
-            if topic in etree.tostring(e):
-                first_para = e
-                break
-        # first_para = cont[3]
+        key = sug[0]
+        page = http.get(index_prefix, search=key, title='Special Search')
+        print(key)
+        result = re.search('(?=<p>).*%s.*[i\'\s][is].*\s<\/p>' % key,
+                           page, re.IGNORECASE)
+        if len(result.group()) > 300:
+            result = result.group()[:300]
+
         cnturl = (index_prefix + "/%s") % sug[0]
-        desc = strip_label(etree.tostring(first_para))
-        if len(desc) > 300:
-            desc = desc[:300] + '...'
-        return '%s -- %s' % (desc, cnturl)
+        # msg =  strip_label(result.group())+' -- '+cnturl
+        msg = '%s -- %s' % (result, cnturl)
+        return msg
 
 
 def strip_label(html_str):
