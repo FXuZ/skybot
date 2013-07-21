@@ -56,6 +56,7 @@ def open(url, query_params=None, user_agent=None, referer=None, post_data=None,
         request.get_method = lambda: get_method
 
     request.add_header('User-Agent', user_agent)
+    request.add_header('Accept-Language', 'zh-cn,zh;q=0.5')
 
     if referer is not None:
         request.add_header('Referer', referer)
