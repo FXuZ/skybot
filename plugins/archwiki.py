@@ -30,6 +30,7 @@ def archwiki(inp):
         print(key)
         result = re.search('(?=<p>).*%s.*[i\'\s][is].*\s<\/p>' % key,
                            page, re.IGNORECASE)
+        result = strip_label(result)
         if len(result.group()) > 300:
             result = result.group()[:300]
 

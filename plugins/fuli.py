@@ -5,7 +5,7 @@ import re
 from util import hook
 
 
-def get_torrent(key, order=5):
+def get_torrent(key, order=0):
     # order 决定怎么排列：0 --- 相关度；1 --- 下载量；2 --- 添加时间；3 ---
     # 大小；4 --- 文件类型；5 --- 评分。
     url = 'http://btdigg.org/search?q=%s&p=0&order=%d'
