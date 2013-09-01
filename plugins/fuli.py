@@ -21,7 +21,9 @@ def get_torrent(key, order=0):
 def get_magnet(key):
     '''.fl/.fuli <keywords> -- 从http://btdigg.org 上搜索福利并且返回评分最高的结果的磁力链.
     '''
-    result = re.search('(?<="magnet)[^"]*(?=")', get_torrent(key))
+    magnet_url = get_torrent(key)
+    print magnet_url
+    result = re.search('(?<="magnet)[^"]*(?=")', magnet_url)
     if result:
         result = "magnet" + result.group()
     else:
