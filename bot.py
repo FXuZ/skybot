@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os
 import Queue
@@ -7,6 +8,8 @@ import time
 
 sys.path += ['plugins']  # so 'import hook' works without duplication
 sys.path += ['lib']
+reload(sys)
+sys.setdefaultencoding('utf-8')
 os.chdir(sys.path[0] or '.')  # do stuff relative to the install directory
 
 
